@@ -1,0 +1,422 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>We're Improving Your Experience</title>
+<style>
+  *,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+  body{
+    font-family:'Segoe UI',Arial,sans-serif;
+    background:linear-gradient(160deg,#f0f4ff 0%,#e8eeff 50%,#f5f0ff 100%);
+    min-height:100vh;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    overflow:hidden;
+    position:relative;
+  }
+
+  /* ── BACKGROUND CLOUDS ── */
+  .cloud{position:absolute;opacity:.35;animation:cloudFloat 8s ease-in-out infinite}
+  .cloud svg{fill:#c8d8ff}
+  .c1{top:8%;left:5%;animation-delay:0s}
+  .c2{top:15%;right:8%;animation-delay:-3s;transform:scale(.7)}
+  .c3{top:5%;left:40%;animation-delay:-5s;transform:scale(.5)}
+  .c4{bottom:20%;left:2%;animation-delay:-2s;transform:scale(.6)}
+  .c5{bottom:15%;right:5%;animation-delay:-4s;transform:scale(.8)}
+  @keyframes cloudFloat{0%,100%{transform:translateX(0)}50%{transform:translateX(15px)}}
+
+  /* ── BIRDS ── */
+  .birds{position:absolute;top:20%;right:15%;opacity:.5}
+  .bird{display:inline-block;animation:birdFly 3s ease-in-out infinite}
+  .bird:nth-child(2){animation-delay:-.4s;margin-left:12px;transform:scale(.7)}
+  .bird:nth-child(3){animation-delay:-.8s;margin-left:8px;transform:scale(.5)}
+  @keyframes birdFly{0%,100%{transform:translateY(0) scaleY(1)}50%{transform:translateY(-6px) scaleY(.8)}}
+
+  /* ── MAIN CARD ── */
+  .card{
+    text-align:center;
+    max-width:600px;
+    padding:3rem 2rem 2.5rem;
+    position:relative;
+    z-index:10;
+  }
+
+  /* Logo */
+  .logo{
+    display:inline-flex;
+    align-items:center;
+    gap:.5rem;
+    margin-bottom:2.5rem;
+    font-size:1.1rem;
+    font-weight:700;
+    color:#5b6bf8;
+  }
+  .logo-icon{
+    width:36px;height:36px;
+    background:linear-gradient(135deg,#5b6bf8,#8b5cf6);
+    border-radius:10px;
+    display:flex;align-items:center;justify-content:center;
+  }
+  .logo-icon svg{fill:#fff;width:20px;height:20px}
+
+  /* Heading */
+  h1{
+    font-size:clamp(1.6rem,4vw,2.2rem);
+    font-weight:700;
+    color:#1a1a2e;
+    margin-bottom:.75rem;
+    letter-spacing:-.5px;
+  }
+
+  p.sub{
+    font-size:.95rem;
+    color:#6b7280;
+    line-height:1.6;
+    max-width:420px;
+    margin:0 auto 2.5rem;
+  }
+
+  /* ── SVG ILLUSTRATION ── */
+  .illustration{
+    width:100%;
+    max-width:480px;
+    margin:0 auto 2.5rem;
+    position:relative;
+  }
+
+  /* Ground */
+  .ground{
+    position:absolute;
+    bottom:0;left:0;right:0;
+    height:18px;
+    background:linear-gradient(90deg,#dce3ff,#c8d5ff,#dce3ff);
+    border-radius:50%;
+    filter:blur(2px);
+    opacity:.6;
+  }
+
+  /* Truck body */
+  .truck-group{animation:truckBounce 2s ease-in-out infinite}
+  @keyframes truckBounce{0%,100%{transform:translateY(0)}50%{transform:translateY(-4px)}}
+
+  /* Worker arm */
+  .worker-arm{
+    transform-origin:130px 195px;
+    animation:armMove 1.5s ease-in-out infinite;
+  }
+  @keyframes armMove{0%,100%{transform:rotate(0deg)}50%{transform:rotate(-15deg)}}
+
+  /* Wheel spin */
+  .wheel-rolling{
+    transform-origin:center;
+    animation:wheelSpin 3s linear infinite;
+  }
+  @keyframes wheelSpin{from{transform:rotate(0deg)}to{transform:rotate(360deg)}}
+
+  /* Tool bounce */
+  .tool-bounce{animation:toolBob 1s ease-in-out infinite}
+  @keyframes toolBob{0%,100%{transform:translateY(0)}50%{transform:translateY(-3px)}}
+
+  /* ── PROGRESS BAR ── */
+  .progress-wrap{
+    background:#e2e8f0;
+    border-radius:100px;
+    height:8px;
+    overflow:hidden;
+    margin:0 auto 1.5rem;
+    max-width:320px;
+  }
+  .progress-bar{
+    height:100%;
+    border-radius:100px;
+    background:linear-gradient(90deg,#5b6bf8,#8b5cf6,#5b6bf8);
+    background-size:200% 100%;
+    animation:progressAnim 2s linear infinite;
+    width:65%;
+  }
+  @keyframes progressAnim{0%{background-position:0%}100%{background-position:200%}}
+
+  /* ── SOCIAL LINKS ── */
+  .social-text{
+    font-size:.82rem;
+    color:#9ca3af;
+    margin-bottom:1rem;
+  }
+  .socials{display:flex;align-items:center;justify-content:center;gap:.75rem}
+  .soc-btn{
+    display:inline-flex;align-items:center;gap:.4rem;
+    padding:.5rem 1rem;
+    border-radius:100px;
+    font-size:.78rem;
+    font-weight:600;
+    text-decoration:none;
+    transition:all .25s;
+    border:1.5px solid #e5e7eb;
+    color:#374151;
+    background:#fff;
+  }
+  .soc-btn:hover{border-color:#5b6bf8;color:#5b6bf8;transform:translateY(-2px);box-shadow:0 4px 12px rgba(91,107,248,.15)}
+
+  /* Dots loader */
+  .dots{display:flex;justify-content:center;gap:.4rem;margin-bottom:1.5rem}
+  .dot{width:8px;height:8px;border-radius:50%;background:#5b6bf8;animation:dotPulse 1.4s ease-in-out infinite}
+  .dot:nth-child(2){animation-delay:.2s;background:#8b5cf6}
+  .dot:nth-child(3){animation-delay:.4s;background:#e8470a}
+  @keyframes dotPulse{0%,100%{transform:scale(.6);opacity:.4}50%{transform:scale(1);opacity:1}}
+
+  /* Floating tools */
+  .float-tool{position:absolute;animation:toolFloat 4s ease-in-out infinite;opacity:.6}
+  .ft1{top:10%;left:8%;animation-delay:0s;font-size:1.4rem}
+  .ft2{top:25%;right:6%;animation-delay:-1.5s;font-size:1.2rem}
+  .ft3{bottom:30%;left:5%;animation-delay:-3s;font-size:1rem}
+  @keyframes toolFloat{0%,100%{transform:translateY(0) rotate(0deg)}50%{transform:translateY(-12px) rotate(10deg)}}
+</style>
+</head>
+<body>
+
+<!-- FLOATING TOOLS -->
+<div class="float-tool ft1">🔧</div>
+<div class="float-tool ft2">⚙️</div>
+<div class="float-tool ft3">🔩</div>
+
+<!-- CLOUDS -->
+<div class="cloud c1">
+  <svg width="80" height="40" viewBox="0 0 80 40"><ellipse cx="40" cy="28" rx="36" ry="14"/><ellipse cx="28" cy="22" rx="18" ry="16"/><ellipse cx="54" cy="24" rx="16" ry="14"/></svg>
+</div>
+<div class="cloud c2">
+  <svg width="80" height="40" viewBox="0 0 80 40"><ellipse cx="40" cy="28" rx="36" ry="14"/><ellipse cx="28" cy="22" rx="18" ry="16"/><ellipse cx="54" cy="24" rx="16" ry="14"/></svg>
+</div>
+<div class="cloud c3">
+  <svg width="80" height="40" viewBox="0 0 80 40"><ellipse cx="40" cy="28" rx="36" ry="14"/><ellipse cx="28" cy="22" rx="18" ry="16"/><ellipse cx="54" cy="24" rx="16" ry="14"/></svg>
+</div>
+<div class="cloud c4">
+  <svg width="80" height="40" viewBox="0 0 80 40"><ellipse cx="40" cy="28" rx="36" ry="14"/><ellipse cx="28" cy="22" rx="18" ry="16"/><ellipse cx="54" cy="24" rx="16" ry="14"/></svg>
+</div>
+<div class="cloud c5">
+  <svg width="80" height="40" viewBox="0 0 80 40"><ellipse cx="40" cy="28" rx="36" ry="14"/><ellipse cx="28" cy="22" rx="18" ry="16"/><ellipse cx="54" cy="24" rx="16" ry="14"/></svg>
+</div>
+
+<!-- BIRDS -->
+<div class="birds">
+  <div class="bird"><svg width="22" height="10" viewBox="0 0 22 10"><path d="M0 5 Q5 0 11 5 Q17 0 22 5" fill="none" stroke="#9ca3af" stroke-width="2" stroke-linecap="round"/></svg></div>
+  <div class="bird"><svg width="22" height="10" viewBox="0 0 22 10"><path d="M0 5 Q5 0 11 5 Q17 0 22 5" fill="none" stroke="#9ca3af" stroke-width="2" stroke-linecap="round"/></svg></div>
+  <div class="bird"><svg width="22" height="10" viewBox="0 0 22 10"><path d="M0 5 Q5 0 11 5 Q17 0 22 5" fill="none" stroke="#9ca3af" stroke-width="2" stroke-linecap="round"/></svg></div>
+</div>
+
+<!-- MAIN CARD -->
+<div class="card">
+
+  <!-- Logo -->
+  <div class="logo">
+    <div class="logo-icon">
+      <svg viewBox="0 0 24 24"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
+    </div>
+    YourBrand
+  </div>
+
+  <!-- Heading -->
+  <h1>We're improving your Experience</h1>
+  <p class="sub">
+    We'll be back up and running again shortly.<br>
+    Please check out our social channels for further updates.
+  </p>
+
+  <!-- ANIMATED SVG ILLUSTRATION -->
+  <div class="illustration">
+    <svg viewBox="0 0 480 260" xmlns="http://www.w3.org/2000/svg" width="100%">
+      <defs>
+        <linearGradient id="truckBody" x1="0%" y1="0%" x2="0%" y2="100%">
+          <stop offset="0%" style="stop-color:#f59e0b"/>
+          <stop offset="100%" style="stop-color:#d97706"/>
+        </linearGradient>
+        <linearGradient id="truckCab" x1="0%" y1="0%" x2="0%" y2="100%">
+          <stop offset="0%" style="stop-color:#fbbf24"/>
+          <stop offset="100%" style="stop-color:#f59e0b"/>
+        </linearGradient>
+        <linearGradient id="shadowGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+          <stop offset="0%" style="stop-color:#c8d5ff;stop-opacity:0"/>
+          <stop offset="50%" style="stop-color:#c8d5ff;stop-opacity:0.6"/>
+          <stop offset="100%" style="stop-color:#c8d5ff;stop-opacity:0"/>
+        </linearGradient>
+        <linearGradient id="workerBody" x1="0%" y1="0%" x2="100%" y2="100%">
+          <stop offset="0%" style="stop-color:#3b4fd4"/>
+          <stop offset="100%" style="stop-color:#4f46e5"/>
+        </linearGradient>
+        <linearGradient id="ground" x1="0%" y1="0%" x2="100%" y2="0%">
+          <stop offset="0%" style="stop-color:#dce3ff;stop-opacity:0"/>
+          <stop offset="50%" style="stop-color:#c8d5ff"/>
+          <stop offset="100%" style="stop-color:#dce3ff;stop-opacity:0"/>
+        </linearGradient>
+      </defs>
+
+      <!-- Ground shadow -->
+      <ellipse cx="280" cy="248" rx="200" ry="10" fill="url(#ground)" opacity="0.5"/>
+
+      <!-- TRUCK GROUP (bouncing) -->
+      <g class="truck-group">
+
+        <!-- Truck bed / cargo -->
+        <rect x="185" y="130" width="195" height="85" rx="4" fill="url(#truckBody)"/>
+        <!-- Bed details -->
+        <rect x="188" y="135" width="189" height="6" rx="2" fill="#d97706" opacity="0.5"/>
+        <rect x="188" y="147" width="189" height="3" rx="1" fill="#d97706" opacity="0.3"/>
+        <rect x="188" y="157" width="189" height="3" rx="1" fill="#d97706" opacity="0.3"/>
+        <rect x="188" y="167" width="189" height="3" rx="1" fill="#d97706" opacity="0.3"/>
+        <!-- Rear bumper -->
+        <rect x="375" y="185" width="8" height="22" rx="2" fill="#92400e"/>
+
+        <!-- Truck cab -->
+        <rect x="80" y="115" width="115" height="100" rx="8" fill="url(#truckCab)"/>
+        <!-- Cab roof curve -->
+        <path d="M85 115 Q140 85 190 115" fill="#fbbf24" stroke="#f59e0b" stroke-width="1"/>
+        <!-- Windshield -->
+        <path d="M92 115 Q140 90 183 115 L183 155 Q140 155 92 155 Z" fill="#93c5fd" opacity="0.7"/>
+        <!-- Windshield reflection -->
+        <path d="M100 120 Q120 100 155 112" fill="none" stroke="rgba(255,255,255,0.6)" stroke-width="2" stroke-linecap="round"/>
+        <!-- Side window -->
+        <rect x="88" y="158" width="50" height="35" rx="4" fill="#93c5fd" opacity="0.5"/>
+        <!-- Door handle -->
+        <rect x="122" y="172" width="12" height="4" rx="2" fill="#92400e"/>
+        <!-- Headlight -->
+        <ellipse cx="86" cy="178" rx="8" ry="6" fill="#fef08a" opacity="0.9"/>
+        <ellipse cx="86" cy="178" rx="5" ry="4" fill="#fff" opacity="0.7"/>
+        <!-- Front bumper -->
+        <rect x="72" y="188" width="12" height="18" rx="2" fill="#92400e"/>
+        <!-- Side stripe -->
+        <rect x="80" y="178" width="115" height="4" fill="#f59e0b" opacity="0.4"/>
+
+        <!-- WHEELS -->
+        <!-- Rear wheel (static - off ground for flat tire scene) -->
+        <g transform="translate(330,215)">
+          <circle r="30" fill="#1f2937"/>
+          <circle r="22" fill="#374151"/>
+          <circle r="14" fill="#4b5563"/>
+          <circle r="6" fill="#9ca3af"/>
+          <!-- Spokes -->
+          <line x1="0" y1="-22" x2="0" y2="22" stroke="#6b7280" stroke-width="2" opacity="0.5"/>
+          <line x1="-22" y1="0" x2="22" y2="0" stroke="#6b7280" stroke-width="2" opacity="0.5"/>
+          <line x1="-16" y1="-16" x2="16" y2="16" stroke="#6b7280" stroke-width="2" opacity="0.5"/>
+          <line x1="16" y1="-16" x2="-16" y2="16" stroke="#6b7280" stroke-width="2" opacity="0.5"/>
+        </g>
+
+        <!-- Front wheel -->
+        <g transform="translate(150,222)">
+          <circle r="26" fill="#1f2937"/>
+          <circle r="19" fill="#374151"/>
+          <circle r="12" fill="#4b5563"/>
+          <circle r="5" fill="#9ca3af"/>
+          <!-- Spokes spinning -->
+          <g class="wheel-rolling">
+            <line x1="0" y1="-19" x2="0" y2="19" stroke="#6b7280" stroke-width="2" opacity="0.5"/>
+            <line x1="-19" y1="0" x2="19" y2="0" stroke="#6b7280" stroke-width="2" opacity="0.5"/>
+            <line x1="-13" y1="-13" x2="13" y2="13" stroke="#6b7280" stroke-width="2" opacity="0.5"/>
+            <line x1="13" y1="-13" x2="-13" y2="13" stroke="#6b7280" stroke-width="2" opacity="0.5"/>
+          </g>
+        </g>
+
+        <!-- Jack/lift under rear -->
+        <rect x="318" y="235" width="24" height="12" rx="2" fill="#6b7280"/>
+        <rect x="323" y="225" width="14" height="12" rx="1" fill="#9ca3af"/>
+
+      </g>
+
+      <!-- FLAT TIRE on ground (separate from truck bounce) -->
+      <ellipse cx="335" cy="246" rx="28" ry="9" fill="#374151"/>
+      <ellipse cx="335" cy="244" rx="22" ry="7" fill="#4b5563"/>
+      <ellipse cx="335" cy="243" rx="12" ry="5" fill="#6b7280"/>
+
+      <!-- WORKER -->
+      <g>
+        <!-- Worker legs -->
+        <rect x="108" y="210" width="12" height="35" rx="4" fill="#1d4ed8"/>
+        <rect x="124" y="205" width="12" height="38" rx="4" fill="#1d4ed8"/>
+        <!-- Shoes -->
+        <ellipse cx="114" cy="246" rx="10" ry="5" fill="#f59e0b"/>
+        <ellipse cx="130" cy="244" rx="10" ry="5" fill="#f59e0b"/>
+        <!-- Worker body -->
+        <rect x="100" y="165" width="48" height="50" rx="8" fill="url(#workerBody)"/>
+        <!-- Overall straps -->
+        <rect x="110" y="165" width="8" height="20" rx="3" fill="#1e40af" opacity="0.5"/>
+        <rect x="130" y="165" width="8" height="20" rx="3" fill="#1e40af" opacity="0.5"/>
+        <!-- Worker head -->
+        <circle cx="124" cy="148" r="20" fill="#fde68a"/>
+        <!-- Hair -->
+        <path d="M104 140 Q124 120 144 140" fill="#92400e"/>
+        <!-- Face -->
+        <circle cx="117" cy="148" r="2.5" fill="#78350f"/>
+        <circle cx="131" cy="148" r="2.5" fill="#78350f"/>
+        <path d="M116 158 Q124 164 132 158" fill="none" stroke="#78350f" stroke-width="2" stroke-linecap="round"/>
+        <!-- Hard hat -->
+        <path d="M100 138 Q124 115 148 138 L148 145 Q124 132 100 145 Z" fill="#ef4444"/>
+        <rect x="96" y="143" width="56" height="5" rx="2" fill="#dc2626"/>
+        <!-- Worker arm animated -->
+        <g class="worker-arm">
+          <rect x="95" y="178" width="14" height="38" rx="5" fill="url(#workerBody)" transform="rotate(35,102,185)"/>
+          <!-- Wrench in hand -->
+          <g class="tool-bounce" transform="translate(76,205)">
+            <rect x="0" y="0" width="6" height="28" rx="3" fill="#6b7280" transform="rotate(-30,3,14)"/>
+            <ellipse cx="2" cy="1" rx="8" ry="6" fill="#9ca3af" transform="rotate(-30,2,1)"/>
+            <ellipse cx="1" cy="28" rx="7" ry="5" fill="#9ca3af" transform="rotate(-30,1,28)"/>
+          </g>
+        </g>
+        <!-- Other arm -->
+        <rect x="148" y="178" width="14" height="32" rx="5" fill="url(#workerBody)" transform="rotate(-20,155,185)"/>
+      </g>
+
+      <!-- Spare tire leaning -->
+      <g transform="translate(68,200)">
+        <ellipse cx="0" cy="0" rx="22" ry="22" fill="#1f2937" transform="rotate(80)"/>
+        <ellipse cx="0" cy="0" rx="16" ry="16" fill="#374151" transform="rotate(80)"/>
+        <ellipse cx="0" cy="0" rx="8" ry="8" fill="#4b5563" transform="rotate(80)"/>
+        <ellipse cx="0" cy="0" rx="3" ry="3" fill="#9ca3af" transform="rotate(80)"/>
+      </g>
+
+      <!-- Tools on ground -->
+      <g class="tool-bounce">
+        <!-- Screwdriver -->
+        <rect x="58" y="238" width="4" height="18" rx="2" fill="#6b7280" transform="rotate(-20,60,247)"/>
+        <rect x="56" y="234" width="8" height="6" rx="1" fill="#dc2626" transform="rotate(-20,60,237)"/>
+      </g>
+      <!-- Nut/bolt -->
+      <polygon points="430,240 436,237 442,240 442,246 436,249 430,246" fill="#6b7280"/>
+      <circle cx="436" cy="243" r="3" fill="#9ca3af"/>
+
+    </svg>
+    <div class="ground"></div>
+  </div>
+
+  <!-- Animated dots -->
+  <div class="dots">
+    <div class="dot"></div>
+    <div class="dot"></div>
+    <div class="dot"></div>
+  </div>
+
+  <!-- Progress bar -->
+  <div class="progress-wrap">
+    <div class="progress-bar"></div>
+  </div>
+
+  <!-- Social text -->
+  <p class="social-text">Please check out our social channels for further updates</p>
+  <div class="socials">
+    <a href="#" class="soc-btn">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg>
+      Instagram
+    </a>
+    <a href="#" class="soc-btn">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
+      Facebook
+    </a>
+    <a href="#" class="soc-btn">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.61 3.42 2 2 0 0 1 3.6 1.24h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 8.8a16 16 0 0 0 6.29 6.29l.96-.96a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+      Contact
+    </a>
+  </div>
+
+</div>
+
+</body>
+</html>
